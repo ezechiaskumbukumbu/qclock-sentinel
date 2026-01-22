@@ -1,0 +1,29 @@
+services:
+  sentinel-app:
+    build:
+      context: .
+      dockerfile: core/build/Dockerfile
+    container_name: rawbank-sentinel
+    ports:
+      - "8082:80"
+    volumes:
+      - ./core/src:/var/www/html
+    networks:
+      - sentinel-net
+    restart: unless-stopped
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    container_name: rawbank-iam
+    command: start-dev
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    networks:
+      - sentinel-net
+
+networks:
+  sentinel-net:
+    driver: bridge

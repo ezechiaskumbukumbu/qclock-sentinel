@@ -1,0 +1,12 @@
+{
+  "ignore": [
+    "docs",
+    "**/*.min.js"
+  ],
+  "rules": {
+    "disable": ["eval-usage"]
+  },
+  "thresholds": {
+    "maxFileLines": 500
+  }
+}
